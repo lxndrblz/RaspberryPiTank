@@ -33,5 +33,6 @@ Things to do
 	~~basic movement~~
 	~~controllable with a smartphone~~
 	~~autostart of the wifi accesspoint~~
+	~~Mistaken text.~~
 	rudimentary pathfinding
 Alexander Bilz
