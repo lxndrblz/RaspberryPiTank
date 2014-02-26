@@ -1,6 +1,8 @@
 RaspberryPi Abrams Tank
 =======================
 
+![alt tag](http://quaintproject.files.wordpress.com/2014/01/dsc1134.jpg?w=820)
+
 This set of file allows you to create your own Tank based on a raspberry pi.
 
 Functions from the RaspberyPi Tank
@@ -16,23 +18,18 @@ Whatch your drive throught the live-stream.
 What you need for this project
 ==============================
 
-	-a raspberry pi (of course!)
+	-a raspberry pi (of course!) with peripheral
 	-a raspberry pi cam
 	-a rc tank
 	-motor drivers
-		-i used two L298N and a TDA7073A
+		-i used two L298N and one TDA7073A
 	-power supply for the Pi like a powerbank
 	-a powersupply for the motors
 	-some cables
 	-some sparetime
 
+
 Things to do
 ==============================
-
-	~~camera stream~~
-	~~basic movement~~
-	~~controllable with a smartphone~~
-	~~autostart of the wifi accesspoint~~
-	~~Mistaken text.~~
 	rudimentary pathfinding
 Alexander Bilz
