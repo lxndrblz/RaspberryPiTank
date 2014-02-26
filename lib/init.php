@@ -1,4 +1,17 @@
  <?php 
+/**
+ * This script is used for initializing the gpio ports after startup, this process has to be done once!
+ * Please mind the GPIOAllocation.txt.
+ *
+ * PHP version 5
+ *
+ * @package    RaspberryPiTank
+ * @author     Alexander Bilz
+ * @copyright  2014 quaintproject.wordpress.com
+ * @license    https://raw.github.com/quaintproject/RaspberryPiTank/master/LICENSE
+ * @link       https://raw.github.com/quaintproject/RaspberryPiTank/master/lib/init.php 
+ */
+
      /*
      Set the GPIO pins for the basic movement to out. I do this by running the wiringpi commands.
      */
