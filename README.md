@@ -11,5 +11,5 @@ Functions from the RaspberyPi Tank
 	-the cannon can be moved up and down
 	-the cannon can be shoot
 
-	Whatch your drive throught the live-stream.
+Whatch your drive throught the live-stream.
 Alexander Bilz
