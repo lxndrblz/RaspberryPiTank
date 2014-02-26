@@ -38,4 +38,6 @@ Things to do
 	rudimentary pathfinding
 
 
+The Raspberry Pi logo and wordmaks are trademarks of the raspberrypi foundation http://www.raspberrypi.org/.
+
 Alexander Bilz 2014
