@@ -1,0 +1,208 @@
+<!-- 
+ 
+File:           index.html
+Version:        Revision: 1
+Last changed:   Date: 2014/02/26 12:00:00 
+Purpose:        This will be the website, which will be accessed by the smarphone
+Author:         Alexander Bilz
+Copyright:      (C) 2014
+Product:        Raspberry Pi Abrams Tank
+ 
+-->
+ 
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Raspberry Pi Abrams Tank control</title>
+ 
+<style type="text/css">
+IMG.displayed {
+display: block;
+margin-left: auto;
+margin-right: auto }
+ 
+ 
+/* Portrait Mode*/
+ 
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation:portrait) {
+  body {
+    -webkit-transform: rotate(90deg);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+ 
+</style>
+ 
+</head>
+<body>
+<span id="foo"></span>
+<span id="dir"></span>
+<img src="test.png" id="imgLogo" class="displayed">
+<!-- The image is the raspberry pi berry logo -->
+ <script src="jquery.js"></script>
+<script>
+/* In this section we check if the device was tilted forward, backward and/or right, left*/
+ 
+if (window.DeviceOrientationEvent) {
+console.log("DeviceOrientation funktioniert");
+window.addEventListener('deviceorientation', function(eventData) {
+var LR = eventData.gamma;
+var FB = eventData.beta;
+var DIR = eventData.alpha;
+ 
+deviceOrientationHandler(LR, FB, DIR);
+}, false);
+} else {
+alert("Not supported on your device or browser. Sorry.");
+}
+ 
+function deviceOrientationHandler(LR, FB, DIR) {
+//for webkit browser
+document.getElementById("imgLogo").style.webkitTransform = "rotate("+ LR +"deg) rotate3d(1,0,0, "+ (FB*-1)+"deg)";
+ 
+//for HTML5 standard-compliance
+document.getElementById("imgLogo").style.transform = "rotate("+ LR +"deg) rotate3d(1,0,0, "+ (FB*-1)+"deg)";
+ 
+ 
+ 
+if(LR < -15)
+{
+//Call the suitable script with ajax (in the background) 
+  document.getElementById("foo").innerHTML = "Left"; 
+  $.ajax({
+  url: 'left.php',
+  });
+ 
+ 
+}
+else if(LR>15)
+{
+  document.getElementById("foo").innerHTML = "Right"; 
+  $.ajax({
+  url: 'right.php',
+  });  
+ 
+}
+else
+{
+ 
+  document.getElementById("dir").innerHTML = ""; 
+  $.ajax({
+  url: 'null.php',
+  });   
+ 
+}
+if (FB > 40)
+{
+ 
+  document.getElementById("foo").innerHTML = "Backward"; 
+  $.ajax({
+  url: 'backward.php',
+ 
+});  
+}
+else if (FB < -5)
+{
+ 
+ //Forward 
+$.ajax({
+url: 'forward.php',
+ 
+  });  
+  document.getElementById("foo").innerHTML = "Forward"; 
+  }
+else
+ 
+{
+ 
+  $.ajax({
+  url: 'stop.php',
+ 
+  });
+  document.getElementById("foo").innerHTML = ""; 
+ 
+}
+ 
+}
+ 
+</script>
+<script>
+function Initialisieren()
+{
+  $.ajax({
+  url: 'init.php',
+  
+  });
+  alert("Initialize was successfull!");
+}
+ 
+function Shoot()
+{
+  $.ajax({
+  url: 'shoot.php',
+  });
+ 
+}
+function Shoot_Canon()
+{
+  $.ajax({
+  url: 'Shoot_Canon.php',
+  });
+  alert("Canon was Shoot!");
+}
+function Turret_Right()
+{
+  $.ajax({
+  url: 'Turm_Rechts.php',
+  });
+}
+function Turret_Left()
+{
+  $.ajax({
+  url: 'Turm_Links.php',
+  });
+}
+function Canon_Up()
+{
+  $.ajax({
+  url: 'Canon_Up.php',
+  });
+ 
+}
+function Canon_Down()
+{
+  $.ajax({
+  url: 'Canon_Down.php',
+  });
+}
+ 
+ 
+</script>
+ 
+<button type="button" style="width:600;height:100" onClick="Initialisieren()">Initialisieren</button>
+<br>
+</br>
+<button type="button" style="width:600;height:100" onClick="Shoot()">Schiessen</button>
+<br>
+</br>
+<button type="button" style="width:600;height:100" onClick="Shoot_Canon()">Schiessen Kanone</button>
+<br>
+</br>
+<button type="button" style="width:600;height:100" onClick="Turret_Left()">Turm links</button>
+<br>
+</br>
+<button type="button" style="width:600;height:100" onClick="Turret_Right()">Turm rechts</button>
+<br>
+</br>
+<button type="button" style="width:600;height:100" onClick="Canon_Up()">Kannon oben</button>
+<br>
+</br>
+<button type="button" style="width:600;height:100" onClick="Canon_Down()">Kannone abwärts</button>
+</body>
+</html>
