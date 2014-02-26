@@ -1,0 +1,25 @@
+
+In this document you can see how i allocated the functions onto the gpio pins. The wiringPi number is the value that is set in our PHP scripts (compare init.php). Please notice you need the additional P5 header for the full functionalatiy.
+
+Raspberry Pi Standard header
+
+3.3v                       O O         5.0v
+GPIO 2 / I2C_SDA           O O         5.0v
+GPIO 3 / I2C_SCL           O O         GND
+GPIO 4 / GPCLK0            O O         GPIO 14 / UART_TXD
+GND                        O O         GPIO 15 / UART_RXD
+GPIO 17 / UART_RTS         O O         GPIO 18 / PWM0
+GPIO 27 / PCM_DIN          O O         GND
+GPIO 22 / SD1_CLK          O O         GPIO 23 / SD1_CMD
+3.3v                       O O         GPIO 24 / SD1_DATA0
+GPIO 10 / SPI_MOSI         O O         GND
+GPIO 9 / SPI_MISO          O O         GPIO 25 / ARM_TCK
+GPIO 11 / SPI_SCLK         O O         GPIO 8 / SPIO_CE0
+GND                        O O         GPIO 7 / SPIO_CE1
+
+Raspberry Pi P5 header
+
+Powersupply for L298N      █ O         3v
+wiringpi 17 (main cannon)  O O         wiringpi 18 (achinegun)
+wiringpi 19 (backward)     O O         wiringpi 20 (Forward)
+GND                        O O         GND
