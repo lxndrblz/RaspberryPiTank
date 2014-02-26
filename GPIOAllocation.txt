@@ -3,23 +3,23 @@ In this document you can see how i allocated the functions onto the gpio pins. T
 
 Raspberry Pi Standard header
 
-3.3v                       O O         5.0v
-GPIO 2 / I2C_SDA           O O         5.0v
-GPIO 3 / I2C_SCL           O O         GND
-GPIO 4 / GPCLK0            O O         GPIO 14 / UART_TXD
-GND                        O O         GPIO 15 / UART_RXD
-GPIO 17 / UART_RTS         O O         GPIO 18 / PWM0
-GPIO 27 / PCM_DIN          O O         GND
-GPIO 22 / SD1_CLK          O O         GPIO 23 / SD1_CMD
-3.3v                       O O         GPIO 24 / SD1_DATA0
-GPIO 10 / SPI_MOSI         O O         GND
-GPIO 9 / SPI_MISO          O O         GPIO 25 / ARM_TCK
-GPIO 11 / SPI_SCLK         O O         GPIO 8 / SPIO_CE0
-GND                        O O         GPIO 7 / SPIO_CE1
+3.3v                             O O         5.0v
+wiringpi 8                       O O         5.0v
+wiringpi 9                       O O         GND
+wiringpi 7 (Backward Motor R)    O O         
+GND                              O O         
+wiringpi 0 (Backward Motor L)    O O         wiringpi 1 (Forward Motor R)                
+wiringpi 2 (Turret Left)         O O         GND
+wiringpi 3 (Forward Motor L)     O O         wiringpi 4 (Turret Right)
+3.3v                             O O         wiringpi 5 (Cannon Up)
+                                 O O         GND
+                                 O O         wiringpi 6 (Cannon Down)
+                                 O O         
+GND                              O O         
 
 Raspberry Pi P5 header
 
-Powersupply for L298N      █ O         3v
-wiringpi 17 (main cannon)  O O         wiringpi 18 (achinegun)
-wiringpi 19 (backward)     O O         wiringpi 20 (Forward)
-GND                        O O         GND
+Powersupply for L298N            █ O         3v
+wiringpi 17 (Main cannon)        O O         wiringpi 18 (Machinegun)
+wiringpi 19 (Backward Light)     O O         wiringpi 20 (Forward Light)
+GND                              O O         GND

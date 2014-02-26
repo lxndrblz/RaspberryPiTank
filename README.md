@@ -12,4 +12,17 @@ Functions from the RaspberyPi Tank
 	-the cannon can be shoot
 
 Whatch your drive throught the live-stream.
+
+What you need for this project
+==============================
+
+	-a raspberry pi (of course!)
+	-a raspberry pi cam
+	-a rc tank
+	-motor drivers
+		-i used two L298N and a TDA7073A
+	-power supply for the Pi like a powerbank
+	-a powersupply for the motors
+	-some cables
+	-some sparetime
 Alexander Bilz
