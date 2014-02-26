@@ -29,9 +29,9 @@ What you need for this project
 Things to do
 ==============================
 
-	- ~~camera stream~~
-	- ~~basic movement~~
-	- ~~controllable with a smartphone~~
-	- ~~autostart of the wifi accesspoint~~
-	-rudimentary pathfinding
+	~~camera stream~~
+	~~basic movement~~
+	~~controllable with a smartphone~~
+	~~autostart of the wifi accesspoint~~
+	rudimentary pathfinding
 Alexander Bilz
