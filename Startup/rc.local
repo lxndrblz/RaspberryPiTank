@@ -1,0 +1,4 @@
+#Add the following lines
+sleep 20
+
+sudo /home/pi/AutoCam.sh 
