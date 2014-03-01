@@ -8,7 +8,7 @@ echo                Alexander Bilz
 echo 
 echo -----------------------------------------------
 rm -rf /tmp/stream
-#Remotve Directory before creating new one!
+#Remove Directory before creating new one!
 echo Creating directory
 mkdir /tmp/stream
 raspistill --nopreview -w 640 -h 480 -q 5 -o /tmp/stream/pic.jpg -tl 100 -t 9999999 -th 0:0:0 &
