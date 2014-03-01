@@ -3,6 +3,8 @@
 echo -----------------------------------------------
 echo 
 echo               Raspberry Pi Tank
+echo        www.quaintproject.wordpress.com
+echo                Alexander Bilz
 echo 
 echo -----------------------------------------------
 rm -rf /tmp/stream
@@ -15,3 +17,5 @@ LD_LIBRARY_PATH=/usr/local/lib mjpg_streamer -i "input_file.so -f /tmp/stream -n
 
 echo 
 echo --------------Finished successfull-------------
+
+
