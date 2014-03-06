@@ -14,17 +14,17 @@ Product:        Raspberry Pi Abrams Tank
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Raspberry Pi Abrams Tank control</title>
- 
+<title>quaintproject.wordpress.com</title>
+
 <style type="text/css">
 IMG.displayed {
 display: block;
 margin-left: auto;
 margin-right: auto }
- 
- 
-/* Portrait Mode*/
- 
+
+
+/* Portrait */
+
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation:portrait) {
   body {
     -webkit-transform: rotate(90deg);
@@ -36,173 +36,312 @@ margin-right: auto }
     left: 0;
   }
 }
- 
+
 </style>
- 
+
 </head>
 <body>
 <span id="foo"></span>
 <span id="dir"></span>
-<img src="./img/test.png" id="imgLogo" class="displayed">
-<!-- The image is the raspberry pi berry logo -->
+<img id="imgLogo" class="displayed">
+<h2>quaintproject Lage Sensor</h2>
+<!--<iframe height="800" width="800" src="http://192.168.42.1:8080/stream_simple.html" seamless class="displayed"> -->
+<!-- <img src="http:192.168.2.103:8080/?action=stream" /> -->
+</iframe>
  <script src="jquery.js"></script>
 <script>
-/* In this section we check if the device was tilted forward, backward and/or right, left*/
- 
+
+
 if (window.DeviceOrientationEvent) {
 console.log("DeviceOrientation funktioniert");
 window.addEventListener('deviceorientation', function(eventData) {
 var LR = eventData.gamma;
 var FB = eventData.beta;
 var DIR = eventData.alpha;
- 
+
 deviceOrientationHandler(LR, FB, DIR);
 }, false);
 } else {
 alert("Not supported on your device or browser. Sorry.");
 }
- 
+
 function deviceOrientationHandler(LR, FB, DIR) {
-//for webkit browser
+/*
+
+If a webkit browser like chrome is used
+*/
 document.getElementById("imgLogo").style.webkitTransform = "rotate("+ LR +"deg) rotate3d(1,0,0, "+ (FB*-1)+"deg)";
- 
+
 //for HTML5 standard-compliance
 document.getElementById("imgLogo").style.transform = "rotate("+ LR +"deg) rotate3d(1,0,0, "+ (FB*-1)+"deg)";
- 
- 
- 
-if(LR < -15)
+//Ajax
+
+
+if(LR < -10)
 {
-//Call the suitable script with ajax (in the background) 
-  document.getElementById("foo").innerHTML = "Left"; 
+  document.getElementById("foo").innerHTML = "Rechts";
+        
+
+  if(Math.abs(FB) < 10 )
+        {
+
+
+  document.getElementById("foo").innerHTML = "Auf der Stelle links" + Math.max(0, Math.min((LR*-4)/100, 1)); 
+
+
+
+  var formData = {LEFTTRACK:Math.max(0, Math.min((LR*-4)/100, 1)), RIGHTTRACK:Math.max(0, Math.min((LR*-4)/100, 1)),DIRECTIONLEFT:'FORWARD', DIRECTIONRIGHT:'BACKWARD'};
   $.ajax({
-  url: 'left.php',
+
+  url : 'pwm.php',
+  type: 'POST',
+  data: formData
   });
- 
- 
+        }
+        else
+        {
+        if(FB < 0)
+    {
+      //tilted towards the left front corner  
+      //Forward left
+    
+      var speedright = Math.max(0, Math.min((FB*-4)/100, 1));
+      var speedleft = Math.max(0, Math.min((LR*-4)/100, 1));
+      
+      speedleft = Math.max(0, Math.min(speedleft, 1));
+      speedright = Math.max(0, Math.min(speedleft*(1+speedright), 1));
+      document.getElementById("foo").innerHTML = "right speed: " + speedright + "left speed:" + speedleft;
+    
+      var formData = {LEFTTRACK:speedleft, RIGHTTRACK:speedright ,DIRECTIONLEFT:'FORWARD', DIRECTIONRIGHT: 'FORWARD'};
+      $.ajax({
+
+      url : 'pwm.php',
+      type: 'POST',
+      data: formData
+      });   
+
+    }
+    else
+    {
+      //The device is tilted towards the left bottom corner 
+      //backward left 
+
+      var speedright = Math.max(0, Math.min((FB*4)/100, 1));
+      var speedleft = Math.max(0, Math.min((LR*-4)/100, 1));
+      speedleft = Math.max(0, Math.min(speedleft, 1));
+      speedright = Math.max(0, Math.min(speedleft*(1+speedright), 1));
+      document.getElementById("foo").innerHTML = "Right SPEED" + speedright + "Left SPEED" + speedleft;
+    
+      var formData = {LEFTTRACK:speedleft, RIGHTTRACK:speedright ,DIRECTIONLEFT:'BACKWARD', DIRECTIONRIGHT: 'BACKWARD'};
+      $.ajax({
+
+      url : 'pwm.php',
+      type: 'POST',
+      data: formData
+      });
+
+    }
+
+        }
+
+
+
+
+
 }
-else if(LR>15)
+else if(LR>10)
 {
-  document.getElementById("foo").innerHTML = "Right"; 
-  $.ajax({
-  url: 'right.php',
-  });  
- 
-}
-else
-{
- 
-  document.getElementById("dir").innerHTML = ""; 
-  $.ajax({
-  url: 'null.php',
-  });   
- 
-}
-if (FB > 40)
-{
- 
-  document.getElementById("foo").innerHTML = "Backward"; 
-  $.ajax({
-  url: 'backward.php',
- 
-});  
-}
-else if (FB < -5)
-{
- 
- //Forward 
-$.ajax({
-url: 'forward.php',
- 
-  });  
-  document.getElementById("foo").innerHTML = "Forward"; 
+    
+  if(Math.abs(FB) < 10 )
+  {
+  
+
+    document.getElementById("foo").innerHTML = "Auf der Stelle Rechts" + Math.max(0, Math.min((LR*4)/100, 1)); 
+  
+
+  
+    var formData = {LEFTTRACK:Math.max(0, Math.min((LR*4)/100, 1)), RIGHTTRACK:Math.max(0, Math.min((LR*4)/100, 1)),DIRECTIONLEFT:'FORWARD', DIRECTIONRIGHT:'BACKWARD'};
+    $.ajax({
+
+    url : 'pwm.php',
+    type: 'POST',
+    data: formData
+    });
+
   }
-else
- 
+  else
+  {
+    if(FB < 0)
+    {
+    //tilted towards the left front corner  
+    //Forward right 
+    
+    var speedright = Math.max(0, Math.min((FB*-4)/100, 1));
+    var speedleft = Math.max(0, Math.min((LR*4)/100, 1));
+    speedright = Math.max(0, Math.min(speedright, 1));
+    speedleft = Math.max(0, Math.min(speedright * (1 + speedleft), 1));
+    document.getElementById("foo").innerHTML = "Right SPEED" + speedright + "Left SPEED" + speedleft;
+    
+    var formData = {LEFTTRACK:speedleft, RIGHTTRACK:speedright ,DIRECTIONLEFT:'FORWARD', DIRECTIONRIGHT: 'FORWARD'};
+    $.ajax({
+
+    url : 'pwm.php',
+    type: 'POST',
+    data: formData
+    });   
+
+    }
+    else
+    {
+    //tilted towards the left bottom corner 
+    //Backward right  
+  
+    var speedright = Math.max(0, Math.min((FB*4)/100, 1));
+    var speedleft = Math.max(0, Math.min((LR*4)/100, 1));
+    speedright = Math.max(0, Math.min(speedright, 1));
+    speedleft = Math.max(0, Math.min(speedright * (1 + speedleft), 1));
+    document.getElementById("foo").innerHTML = "Right SPEED" + speedright + "Left SPEED" + speedleft;
+      
+    var formData = {LEFTTRACK:speedleft, RIGHTTRACK:speedright ,DIRECTIONLEFT:'BACKWARD', DIRECTIONRIGHT: 'BACKWARD'};
+    $.ajax({
+
+    url : 'pwm.php',
+    type: 'POST',
+    data: formData
+    });
+
+    }
+  
+
+  }
+}
+
+else if (FB > 10 && Math.abs(LR) < 10)
 {
- 
-  $.ajax({
-  url: 'stop.php',
- 
-  });
-  document.getElementById("foo").innerHTML = ""; 
- 
+
+  document.getElementById("foo").innerHTML = "Nur Rückwärts" +  Math.max(0, Math.min((FB*4)/100, 1)); 
+var poststr = (FB *4)/100;  
+
+var formData = {LEFTTRACK:Math.max(0, Math.min((FB*4)/100, 1)), RIGHTTRACK:Math.max(0, Math.min((FB*4)/100, 1)),DIRECTIONLEFT:'BACKWARD', DIRECTIONRIGHT: 'BACKWARD'};
+
+
+$.ajax({
+
+url : 'pwm.php',
+type: 'POST',
+data: formData
+});
+
 }
- 
+else if (FB < -5 && Math.abs(LR) < 10)
+{
+//Clamp the value betweeen 0 and 1
+
+document.getElementById("foo").innerHTML = "Nur Vorwärts" + Math.max(0, Math.min((-1)*(FB*4)/100, 1)) ; 
+
+var formData = {LEFTTRACK:Math.max(0, Math.min((-1)*(FB*4)/100, 1)), RIGHTTRACK:Math.max(0, Math.min((-1)*(FB*4)/100, 1)),DIRECTIONLEFT:'FORWARD', DIRECTIONRIGHT:'FORWARD'};
+$.ajax({
+
+url : 'pwm.php',
+type: 'POST',
+data: formData
+});
 }
- 
+else
+
+{
+var formData = {LEFTTRACK:0, RIGHTTRACK:0, DIRECTIONRIGHT:'STOP', DIRECTIONLEFT:'STOP'};
+
+$.ajax({
+
+url : 'pwm.php',
+type: 'POST',
+data: formData
+});
+document.getElementById("foo").innerHTML = ""; 
+
+}
+
+}
+
 </script>
 <script>
 function Initialisieren()
 {
-  $.ajax({
-  url: 'init.php',
+$.ajax({
+url: 'init.php',
+
+});
+//document.getElementById("foo").innerHTML = ""; 
+
+//}
   
-  });
-  alert("Initialize was successfull!");
+  
+alert("Initialisieren erfolgreich!");
 }
- 
+
 function Shoot()
 {
-  $.ajax({
-  url: 'shoot.php',
-  });
- 
+//Hier kommt die Schussfunktion
+$.ajax({
+url: 'shoot.php',
+});
+//alert("Schuss");
 }
 function Shoot_Canon()
 {
-  $.ajax({
-  url: 'Shoot_Canon.php',
-  });
-  alert("Canon was Shoot!");
+$.ajax({
+url: 'Shoot_Canon.php',
+});
+alert("Kanone");
 }
-function Turret_Right()
+function Turm_Rechts()
 {
-  $.ajax({
-  url: 'Turm_Rechts.php',
-  });
+$.ajax({
+url: 'Turm_Rechts.php',
+});
 }
-function Turret_Left()
+function Turm_Links()
 {
-  $.ajax({
-  url: 'Turm_Links.php',
-  });
+$.ajax({
+url: 'Turm_Links.php',
+});
 }
 function Canon_Up()
 {
-  $.ajax({
-  url: 'Canon_Up.php',
-  });
- 
+$.ajax({
+url: 'Canon_Up.php',
+});
+//alert("Kanone aufwärts");
 }
 function Canon_Down()
 {
-  $.ajax({
-  url: 'Canon_Down.php',
-  });
+$.ajax({
+url: 'Canon_Down.php',
+});
 }
- 
- 
+
+
 </script>
- 
+
 <button type="button" style="width:600;height:100" onClick="Initialisieren()">Initialisieren</button>
 <br>
-</br>
+<br>
 <button type="button" style="width:600;height:100" onClick="Shoot()">Schiessen</button>
 <br>
-</br>
+<br>
 <button type="button" style="width:600;height:100" onClick="Shoot_Canon()">Schiessen Kanone</button>
 <br>
-</br>
-<button type="button" style="width:600;height:100" onClick="Turret_Left()">Turm links</button>
 <br>
-</br>
-<button type="button" style="width:600;height:100" onClick="Turret_Right()">Turm rechts</button>
+<button type="button" style="width:600;height:100" onClick="Turm_Links()">Turm links</button>
 <br>
-</br>
+<br>
+<button type="button" style="width:600;height:100" onClick="Turm_Rechts()">Turm rechts</button>
+<br>
+<br>
 <button type="button" style="width:600;height:100" onClick="Canon_Up()">Kannon oben</button>
 <br>
-</br>
+<br>
 <button type="button" style="width:600;height:100" onClick="Canon_Down()">Kannone abwärts</button>
 </body>
 </html>
