@@ -1,3 +1,11 @@
+File:           GPIOAllocation
+Version:        Revision: 1
+Last changed:   Date: 2014/03/07 19:30:00
+Purpose:        This documents shows the gpio allocation
+Author:         Alexander Bilz
+Copyright:      (C) 2014
+Product:        Raspberry Pi Abrams Tank
+
 
 In this document you can see how i allocated the functions onto the gpio pins. The wiringPi number is the value that is set in our PHP scripts (compare init.php). Please notice you need the additional P5 header for the full functionalatiy.
 
