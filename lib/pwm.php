@@ -36,30 +36,40 @@ else if($directionleft == 'BACKWARD' && $directionright =='BACKWARD')
 shell_exec('echo "3=' . $left. '" > /dev/pi-blaster');
 #Right Track
 shell_exec('echo "4=' . $right. '" > /dev/pi-blaster');
-shell_exec('echo "0=1" > /dev/pi-blaster');
+$execute = 'echo "0=1" > /dev/pi-blaster';
+shell_exec($execute);
 }
 else if($directionleft == 'BACKWARD' && $directionright =='FORWARD')
 {
-shell_exec('echo "2=' . $right . '" > /dev/pi-blaster');
-shell_exec('echo "3=' . $left .  '" > /dev/pi-blaster');
+$execute = 'echo "2=' . $right . '" > /dev/pi-blaster';
+shell_exec($execute);
+$execute = 'echo "3=' . $left .  '" > /dev/pi-blaster'; 
+shell_exec($execute);
 }
 else if($directionleft == 'FORWARD' && $directionright =='BACKWARD')
 {
-shell_exec('echo "1=' . $right . '" > /dev/pi-blaster');
-shell_exec('echo "4=' . $left .  '" > /dev/pi-blaster');
+$execute = 'echo "1=' . $right . '" > /dev/pi-blaster';
+shell_exec($execute);
+$execute = 'echo "4=' . $left .  '" > /dev/pi-blaster'; 
+shell_exec($execute);
 }
 else
 {
-
-shell_exec('echo "0=0" > /dev/pi-blaster');
-shell_exec('echo "1=0" > /dev/pi-blaster');
-shell_exec('echo "2=0" > /dev/pi-blaster');
-shell_exec('echo "3=0" > /dev/pi-blaster');
-shell_exec('echo "4=0" > /dev/pi-blaster');
+$execute = 'echo "0=0" > /dev/pi-blaster';
+shell_exec($execute);
+$execute = 'echo "1=0" > /dev/pi-blaster';
+shell_exec($execute);
+$execute = 'echo "2=0" > /dev/pi-blaster';
+shell_exec($execute);
+$execute = 'echo "3=0" > /dev/pi-blaster';
+shell_exec($execute);
+$execute = 'echo "4=0" > /dev/pi-blaster';
+shell_exec($execute);
 /*
 Switch led off
 -Forward
 */
+
 shell_exec('gpio write 20 0');
 }
 
