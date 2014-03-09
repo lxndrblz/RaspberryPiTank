@@ -1,6 +1,9 @@
 <?php
 /*
  * This script is used for setting the gpio ports after while running, this script is called by the ajax function!
+ * Each Shell_execute is setting one pin to one PWM Mode. The Value which is set as the PWM value is $left and right. 
+ * Depending on whats set to the $directionleft and $directionright variable the depending pins will be set.
+ *
  * Please mind the GPIOAllocation.txt.
  * Each track can take a direction (Forward and Backward) and PWM Value, which depends on the tilting of the device 
  *
@@ -23,54 +26,81 @@ $directionright = $_POST["DIRECTIONRIGHT"];
 
 if($directionleft == 'FORWARD' && $directionright =='FORWARD')
 { 
-#Left Track
-shell_exec('echo "1=' . $left . '" > /dev/pi-blaster');
-#Right Track
-shell_exec('echo "2=' . $right . '" > /dev/pi-blaster');
-shell_exec('gpio write 20 1');
+	/*
+
+	Descreption:
+
+				  Left   Right
+					^     ^
+					|     |
+					|     |
+
+	*/
+
+
+	#Left Track
+	shell_exec('echo "1=' . $left . '" > /dev/pi-blaster');
+	#Right Track
+	shell_exec('echo "2=' . $right . '" > /dev/pi-blaster');
+
 }
 
 else if($directionleft == 'BACKWARD' && $directionright =='BACKWARD')
 { 
-#Left Track
-shell_exec('echo "3=' . $left. '" > /dev/pi-blaster');
-#Right Track
-shell_exec('echo "4=' . $right. '" > /dev/pi-blaster');
-$execute = 'echo "0=1" > /dev/pi-blaster';
-shell_exec($execute);
+	/*
+
+	Descreption:
+
+				  Left  Right 
+					|     |
+					|     |
+	 				v     v
+	*/
+	#Left Track
+	shell_exec('echo "3=' . $left. '" > /dev/pi-blaster');
+	#Right Track
+	shell_exec('echo "4=' . $right. '" > /dev/pi-blaster');
+
 }
 else if($directionleft == 'BACKWARD' && $directionright =='FORWARD')
 {
-$execute = 'echo "2=' . $right . '" > /dev/pi-blaster';
-shell_exec($execute);
-$execute = 'echo "3=' . $left .  '" > /dev/pi-blaster'; 
-shell_exec($execute);
+	/*
+
+	Descreption:
+
+				  Left  Right 
+					|     ^
+					|     |
+	 				v     |
+	*/
+	shell_exec('echo "2=' . $right . '" > /dev/pi-blaster');
+	shell_exec('echo "3=' . $left .  '" > /dev/pi-blaster');
 }
 else if($directionleft == 'FORWARD' && $directionright =='BACKWARD')
 {
-$execute = 'echo "1=' . $right . '" > /dev/pi-blaster';
-shell_exec($execute);
-$execute = 'echo "4=' . $left .  '" > /dev/pi-blaster'; 
-shell_exec($execute);
+	/*
+
+	Descreption:
+
+				  Left  Right 
+					^     |
+					|     |
+	 				|     v
+	*/
+
+	shell_exec('echo "1=' . $right . '" > /dev/pi-blaster');
+	shell_exec('echo "4=' . $left .  '" > /dev/pi-blaster');
 }
 else
 {
-$execute = 'echo "0=0" > /dev/pi-blaster';
-shell_exec($execute);
-$execute = 'echo "1=0" > /dev/pi-blaster';
-shell_exec($execute);
-$execute = 'echo "2=0" > /dev/pi-blaster';
-shell_exec($execute);
-$execute = 'echo "3=0" > /dev/pi-blaster';
-shell_exec($execute);
-$execute = 'echo "4=0" > /dev/pi-blaster';
-shell_exec($execute);
-/*
-Switch led off
--Forward
-*/
+	#If no movment: Stop all ports
 
-shell_exec('gpio write 20 0');
+	shell_exec('echo "0=0" > /dev/pi-blaster');
+	shell_exec('echo "1=0" > /dev/pi-blaster');
+	shell_exec('echo "2=0" > /dev/pi-blaster');
+	shell_exec('echo "3=0" > /dev/pi-blaster');
+	shell_exec('echo "4=0" > /dev/pi-blaster');
+
 }
 
 ?>

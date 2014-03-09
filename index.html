@@ -16,6 +16,11 @@ Product:        Raspberry Pi Abrams Tank
 <head> 
   <meta charset="UTF-8">
   <title>quaintproject.wordpress.com</title>
+  <!--
+  
+  Set some smartphone specific parameters
+
+  -->
   <meta name="viewport" content="initial-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -32,39 +37,44 @@ Product:        Raspberry Pi Abrams Tank
 <div data-role="page">
 
   <div data-role="header" data-position="fixed">
+    <!-- Brings up the panel from the left side -->  
     <a href="#defaultpanel" data-role="button"  data-icon="bars" >Advanced</a>
+    <!-- Display a title in the header -->
     <h1>Raspberry Pi Abrams</h1>
-    <label id="foo" style="visibility:hidden">Values</label>
+
+    <!-- Display the "logs" from control.js you can hide it by adding the following after id="foo": style="visibility:hidden" -->
+    <label id="foo" >Values</label>
   </div>
 
 <div data-role="panel" id="defaultpanel" data-theme="b">
  
     <div class="panel-content">
+      <!-- The additional options of the panel that opens by clicking on the button with the bars icon-->
       <h3>Advanced options</h3>
-      <a href="index.html" data-role="button" onClick="Shoot_Canon()">Shoot Cannnon</a>
+      <a href="index.html" data-role="button" onClick="Shoot_Cannon()">Shoot Cannnon</a>
       <a href="index.html" data-role="button" onClick="Shoot()">Machinegun</a>
       <h3>Turret</h3>
-      <a href="index.html" data-role="button" onClick="Turm_Rechts()">Right</a>
-      <a href="index.html" data-role="button" onClick="Turm_Links()">Left</a>
-      <h3>Main Caonnon</h3>
-      <a href="index.html" data-role="button" onClick="Canon_Up()">Up</a>
-      <a href="index.html" data-role="button" onClick="Canon_Down()">Down</a>
+      <a href="index.html" data-role="button" onClick="Turret_Right()">Right</a>
+      <a href="index.html" data-role="button" onClick="Turrte_Left()">Left</a>
+      <h3>Main Cannon</h3>
+      <a href="index.html" data-role="button" onClick="Cannon_Up()">Up</a>
+      <a href="index.html" data-role="button" onClick="Cannon_Down()">Down</a>
 
 
     </div><!-- /content wrapper for padding -->
   </div>
 
   <div data-role="content"> 
+  <!-- Add the iframe to to the content div. The iframe is refering to the local site of the stream. 
+  In my case the stream is on port 8080 (you may need to change this)-->
   <iframe src="http://192.168.42.1:8080/stream_simple.html" seamless class="displayed" width="350" height="350"></iframe>
-
-
-
   </div><!-- /content -->
 
   <div data-role="footer" data-position="fixed">
     <div data-role="navbar">
       <ul>
-        <li><a href="#" data-icon="gear" class="ui-btn-active ui-state-persist" onClick="Initialisieren()">Initialize</a></li>
+        <!-- Show the initialize button in the footer -->
+        <li><a href="#" data-icon="gear" class="ui-btn-active ui-state-persist" onClick="Initialize()">Initialize</a></li>
       </ul>
     </div>
   </div>

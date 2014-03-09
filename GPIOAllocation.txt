@@ -7,18 +7,18 @@ Copyright:      (C) 2014
 Product:        Raspberry Pi Abrams Tank
 
 
-In this document you can see how i allocated the functions onto the gpio pins. The wiringPi number is the value that is set in our PHP scripts (compare init.php). Please notice you need the additional P5 header for the full functionalatiy.
+In this document you can see how i allocated the functions onto the gpio pins. The wiringPi number is the value that is set in our PHP scripts (compare init.php). Please notice you need the additional P5 header for the full functionality.
 
 Raspberry Pi Standard header
 
 3.3v                             O O         5.0v
 wiringpi 8                       O O         5.0v
 wiringpi 9                       O O         GND
-wiringpi 7 (Backward Motor R)    O O         
+piblaster 7 (Backward Motor R)   O O         
 GND                              O O         
-wiringpi 0 (Backward Motor L)    O O         wiringpi 1 (Forward Motor R)                
+piblaster 0 (Backward Motor L)   O O         piblaster 1 (Forward Motor R)                
 wiringpi 2 (Turret Left)         O O         GND
-wiringpi 3 (Forward Motor L)     O O         wiringpi 4 (Turret Right)
+piblaster 3 (Forward Motor L)    O O         wiringpi 4 (Turret Right)
 3.3v                             O O         wiringpi 5 (Cannon Up)
                                  O O         GND
                                  O O         wiringpi 6 (Cannon Down)
