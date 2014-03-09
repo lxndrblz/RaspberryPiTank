@@ -1,4 +1,4 @@
-#Add the following lines
+#Add the following lines to the /etc/rc.local file. those two lines must be added before the exit 0.
 sleep 20
 
 sudo /home/pi/AutoCam.sh 
